@@ -1,0 +1,10 @@
+The program was written to read xml data from
+GPS-tracks recorded with the app myTracks on
+Apples iPhone or iPad
+It can be used without any restrictions by everybody on PCs.
+A propagation to third parties is allowed.
+
+developed in Swift, C++, python
+first version in Swift for macOS, now abandoned
+C++ Gnome GTK+ with gtkmm wrapper, October 2018
+last version in python Gnome with pyGTK, March 2021.
