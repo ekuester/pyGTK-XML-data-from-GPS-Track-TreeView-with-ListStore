@@ -1,0 +1,3 @@
+build/
+dist/
+pyXMLGPX_parser.py.egg-info/*

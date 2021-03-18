@@ -99,12 +99,12 @@ class XMLGPXParserWindow(Gtk.Window):
         self.scrolled_window.set_policy(\
             Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         # model creation for the treeview
-        treemodel = Gtk.ListStore( int, 'gdouble', 'gdouble', 'gdouble', 'glong', 'gdouble', 'gdouble')
+        treemodel = Gtk.ListStore( int, 'gdouble', 'gdouble', 'gdouble', 'gdouble', 'gdouble', 'gdouble')
         # create TreeView
         self.treeview = Gtk.TreeView(model=treemodel)
         # treeview column headers
         treeview_columns =\
-            ['Id', 'latitude', 'longitude', 'elevation', 'time [sec]', 'distance', 'speed [km/h]']
+            ['Id', 'latitude', 'longitude', 'elevation', 'time [sec]', 'distance', 'velocity [km/h]']
         for num, name in enumerate(treeview_columns):
             rendererText = Gtk.CellRendererText()
             # center align all columns of row (0.0 left, 1.0 right)
@@ -227,6 +227,7 @@ class XMLGPXParserWindow(Gtk.Window):
             self.context_id = self.status_bar.push(self.context_id,\
                 _('An error occurred while opening, good luck!'))
             return
+        print(f'file chosen: {gpx_url}')
         self.remove(self.vbox)
         if (self.first_run):
             # prepare scrolled window
@@ -238,13 +239,22 @@ class XMLGPXParserWindow(Gtk.Window):
             self.vbox.pack_start(self.label_box, True, True, 0)
             self.bottom_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
             self.bottom_box.set_border_width(0)
-            self.total_label = Gtk.Label()
-            self.total_label.set_margin_start(64)
-            self.total_label.set_markup(_("<b>Total distance:</b>"))
-            self.total_label.set_margin_end(24)
-            self.total_entry = Gtk.Entry(text="0.0")
-            self.bottom_box.pack_start(self.total_label, False, True, 0)
-            self.bottom_box.pack_start(self.total_entry, False, True, 0)
+            distance_label = Gtk.Label()
+            distance_label.set_margin_start(64)
+            distance_label.set_markup(_("<b>Total distance:</b>"))
+            distance_label.set_margin_end(24)
+            self.distance_entry = Gtk.Entry(text="0.0")
+            self.bottom_box.pack_start(distance_label, False, True, 0)
+            self.bottom_box.pack_start(self.distance_entry, False, True, 0)
+            space_label = Gtk.Label(label=' ')
+            self.bottom_box.pack_start(space_label, False, False, 0)
+            duration_label = Gtk.Label()
+            duration_label.set_margin_end(24)
+            duration_label.set_markup(_("<b>Total duration:</b>"))
+            self.duration_entry = Gtk.Entry(text="0.0")
+            self.duration_entry.set_margin_end(64)
+            self.bottom_box.pack_end(self.duration_entry, False, True, 0)
+            self.bottom_box.pack_end(duration_label, False, True, 0)
             self.vbox.pack_start(self.bottom_box, False, True, 0)
             self.first_run = False
         gpx = tree.getroot()
@@ -252,12 +262,13 @@ class XMLGPXParserWindow(Gtk.Window):
         # namespace in {}
         try:
             index = tag.index('}')
-        except ValueError as err:
+        except ValueError:
             index = -1
         index += 1
         ns = tag[0:index]
         # find all trackpoints
         points = 0
+        total_duration = 0.0
         # distance by great circle haversine
         total_distance = 0.0
         # distance given by mytracks app
@@ -266,7 +277,8 @@ class XMLGPXParserWindow(Gtk.Window):
         for trk in gpx.findall(f'{ns}trk'):
             for trkseg in trk.findall(f'{ns}trkseg'):
                 for trkpt in trkseg.iter(f'{ns}trkpt'):
-                    trackpoint = dict()
+                    trackpoint = dict(points=0, latitude=0.0, longitude=0.0, elevation=0.0,\
+                        seconds=0.0, distance=0.0, velocity=0.0, length=0.0, speed=0.0)
                     lat = trkpt.get('lat')
                     lon = trkpt.get('lon')
                     ele_item = trkpt.find(f'{ns}ele')
@@ -276,29 +288,45 @@ class XMLGPXParserWindow(Gtk.Window):
                     trackpoint['elevation'] = float(ele)
                     time_item = trkpt.find(f'{ns}time')
                     date_string = time_item.text
-                    date_time = strptime(date_string,'%Y-%m-%dT%H:%M:%SZ')
-                    trackpoint['seconds'] = mktime(date_time)
+                    z = date_string.index('Z')
+                    # do we have milliseconds
+                    try:
+                        p = date_string.index('.')
+                    except ValueError:
+                        p = z
+                    date_time = strptime(date_string[0:p],'%Y-%m-%dT%H:%M:%S')
+                    seconds = mktime(date_time)
+                    if p < z:
+                        # add milliseconds, normally they were truncated
+                        seconds += float(date_string[p:z])
+                    trackpoint['seconds'] = seconds
                     extensions = trkpt.find(f'{ns}extensions')
                     if extensions:
                         for ext in extensions:
                             try:
                                 i = ext.tag.index('}')
-                            except ValueError as err:
+                            except ValueError:
                                 i = -1
                             i += 1
                             key = ext.tag[i:]
                             trackpoint[key] = ext.text
                     points += 1
                     trackpoint['Id'] = points
-                    if points == 1:
-                        trackpoint['distance'] = 0.0
-                        trackpoint['velocity'] = 0.0
-                    else:
-                        previous = trackpoints[-1]
-                        self.distanceByHaversine(previous, trackpoint)
+                    if points > 1:
+                        # fetch last element
+                        previous = trackpoints.pop()
                         elapsed_time = trackpoint['seconds'] - previous['seconds']
-                        trackpoint['velocity'] = trackpoint['distance'] / elapsed_time * 3600.0
+                        # rarely there are two equal timestamps
+                        if elapsed_time == 0:
+                            # correct timestamp of previous point
+                            previous['seconds'] -= 1
+                            elapsed_time = 1.0
+                        # put element back
+                        trackpoints.append(previous)
+                        self.distanceByHaversine(previous, trackpoint)
                         total_distance += trackpoint['distance']
+                        trackpoint['velocity'] = trackpoint['distance'] / elapsed_time * 3600.0
+                        total_duration += elapsed_time
                         if extensions:
                             tracks_distance += float(trackpoint['length'])
                     trackpoints.append(trackpoint)
@@ -312,8 +340,14 @@ class XMLGPXParserWindow(Gtk.Window):
             row_iter = model.append()
             for column, name in enumerate(names):
                 model.set_value(row_iter, column, trackpoint[name])
-        self.total_entry.set_text(f'{total_distance: 5.4f} km')
-        print(f'mytracks distance = {tracks_distance: 5.4f}')
+        self.distance_entry.set_text(f'{total_distance: 5.3f} km')
+        # convert seconds to hh:mm:ss.f
+        total_duration += 0.05
+        hh, mm60 = divmod(total_duration, 3600)
+        mm, ss = divmod(mm60, 60)
+        self.duration_entry.set_text(f'{hh:2.0f}h {mm:2.0f}m {ss:2.1f}s')
+        print(f'total duration = {total_duration: 5.1f} seconds')
+        print(f'mytracks distance = {tracks_distance: 5.3f} km')
         self.context_id = self.status_bar.push(self.context_id,\
             f(_('Track contains {points} trackpoints')))
         self.label.set_markup(f'<span face=\"mono\" weight=\"bold\">View XML data from {gpx_url}</span>')

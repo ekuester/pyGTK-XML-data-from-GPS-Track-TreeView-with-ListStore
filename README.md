@@ -15,7 +15,14 @@ Since Python is an interpretative language you can simply start the program in c
 chmod +x ./pyXMLGPX-parser.py
 ./pyXMLGPX-parser.py
 ```
-In the moment exists no localization or package preparation (on the TO-DO-list).
+In the moment exists no localization (on the TO-DO-list). To generate packages, use
+
+```
+# generate a source package
+python3 setup.py sdist
+# generate a rpm package
+python3 setup.py bdist_rpm
+```
 
 I wrote this program to become familiar with the GTK-API and to get a feeling how to display different widgets on the screen. For reading of XML files the python module <b>xml.etree.ElementTree</b> is used, which integrates itself trouble-free. Take the whole as example for handling treeviews on liststore base and reading of xml files under python GTK+.
 
