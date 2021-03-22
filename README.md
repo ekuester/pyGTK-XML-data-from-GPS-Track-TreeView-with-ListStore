@@ -15,7 +15,7 @@ Since Python is an interpretative language you can simply start the program in c
 chmod +x ./pyXMLGPX-parser.py
 ./pyXMLGPX-parser.py
 ```
-In the moment exists no localization (on the TO-DO-list). To generate packages, use
+In the moment exists only a german localization. To generate packages, use
 
 ```
 # generate a source package
@@ -29,7 +29,7 @@ I wrote this program to become familiar with the GTK-API and to get a feeling ho
 ### Background
 During trips by foot, bicycle or car I record the covered distance on my Apple iPhone or iPad with the excellent App <b>myTracks</b> by Dirk Stichling. Find more informations at [1] or [2].
 
-The obtained GPX files are extracted from the backup files made by iTunes under macOS or Windows [3] and then transferred to my personal computer for dealing with further. To read in the file correctly into the program, you can do some changes:
+The obtained GPX files are extracted from the backup files made by iTunes under macOS or Windows [3] and then transferred to my personal computer for dealing with further. Formerly the program could not deal with namespaces and so you had to modify the file before reading in, like so:
 
 ```
 # delete the namespace prefix inside the data file and make a backup
@@ -41,7 +41,7 @@ sed -e ':a;N;$!ba;s|\(.*<gpx\).*\(<trk>.*\)|\1>\2|' -i gpxtrack-0.gpx
 With the newest version of the programm this is NOT necessary anymore ...
 
 ### Usage:
-The program is mostly self explaining. On the toolbar at top of the window you will find buttons for opening a xml file, leaving the program and getting info about. After opening a xml file the contained track points are displayed in a table together with the calculated speed between two points. The total covered distance is shown at the bottom of the window. Erasing and/or inserting additional points should not be difficult to implant just as storing of the modified file (but I leave that as your own task).
+The program is mostly self explaining. On the toolbar at top of the window you will find buttons for opening a xml file, leaving the program and getting some info about it. After opening a xml file the contained track points are displayed in a table together with the calculated speed between two points. The total covered distance and the total duration are shown at the bottom of the window. Erasing and/or inserting additional points should not be difficult to implant just as storing of the modified file (but I leave that as your own task).
 
 Simplified example of a xml file with GPS track data:
 

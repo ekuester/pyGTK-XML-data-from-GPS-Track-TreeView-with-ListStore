@@ -1,5 +1,6 @@
 include pyXMLGPX-parser/about.xpm
 include pyXMLGPX-parser/COMMENTS
 include pyXMLGPX-parser/LICENSE
+include pyXMLGPX-parser/locale/*/LC_MESSAGES/*.mo
 include VERSION
 

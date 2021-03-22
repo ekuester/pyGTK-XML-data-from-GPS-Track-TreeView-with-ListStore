@@ -1,0 +1,163 @@
+# Translations for pyXMLGPX-parser.
+# Copyright (C) 2021 Erich Küster
+# This file is distributed under the same license as
+#   the pyGTK-XML-data-from-GPS-Track-TreeView-with-ListStore package.
+# Erich Küster <erich.kuester@arcor.de>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-03-21 14:58+0100\n"
+"PO-Revision-Date: 2021-03-21 15:05+0100\n"
+"Last-Translator: Erich Küster <erich.kuester@arcor.de>\n"
+"Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: pyXMLGPX-parser.py:66
+msgid "Gtk+: XML Application - XML TableView from GPX-Tracker"
+msgstr "Gtk+: XML Application - XML Tabelle aus GPX-Spuraufzeichnung"
+
+#: pyXMLGPX-parser.py:85
+msgid "<span face=\"mono\" weight=\"bold\">View XML data from GPS Track</span>"
+msgstr "<span face=\"mono\" weight=\"bold\">XML Daten aus GPS Spuraufzeichnung</span>"
+
+#: pyXMLGPX-parser.py:107
+msgid "UTC"
+msgstr ""
+
+#: pyXMLGPX-parser.py:107
+msgid "distance [km]"
+msgstr "Entfernung [km]"
+
+#: pyXMLGPX-parser.py:107
+msgid "elevation"
+msgstr "Höhe"
+
+#: pyXMLGPX-parser.py:107
+msgid "latitude"
+msgstr "Breite"
+
+#: pyXMLGPX-parser.py:107
+msgid "longitude"
+msgstr "Länge"
+
+#: pyXMLGPX-parser.py:107
+msgid "velocity [km/h]"
+msgstr "Geschw. [km/h]"
+
+#: pyXMLGPX-parser.py:130
+msgid "Choose a file, click Open"
+msgstr "Dateiauswahl, Öffnen klicken"
+
+#: pyXMLGPX-parser.py:148
+msgid "Open"
+msgstr "Öffnen"
+
+#: pyXMLGPX-parser.py:149
+msgid "Open GPS recording"
+msgstr "GPS Aufzeichnung öffnen"
+
+#: pyXMLGPX-parser.py:158
+msgid "Quit"
+msgstr "Verlassen"
+
+#: pyXMLGPX-parser.py:159
+msgid "Exit program"
+msgstr "Programm verlassen"
+
+#: pyXMLGPX-parser.py:172
+msgid "About"
+msgstr "Info"
+
+#: pyXMLGPX-parser.py:173
+msgid "About program"
+msgstr "Über das Programm"
+
+#: pyXMLGPX-parser.py:185
+msgid "GPX track files"
+msgstr "GPX Dateien"
+
+#: pyXMLGPX-parser.py:190
+msgid "XML files"
+msgstr "XML Dateien"
+
+#: pyXMLGPX-parser.py:195
+msgid "Text files"
+msgstr "Textdateien"
+
+#: pyXMLGPX-parser.py:200
+msgid "Any files"
+msgstr "Alle Dateien"
+
+#: pyXMLGPX-parser.py:206
+msgid "Select GPS track file"
+msgstr "GPS Aufzeichnung auswählen"
+
+#: pyXMLGPX-parser.py:225
+msgid "Go on to open a new track file"
+msgstr "Jetzt neue Spuraufzeichnung öffnen"
+
+#: pyXMLGPX-parser.py:229
+msgid "No track file chosen, try again"
+msgstr "Keine Spurdatei ausgewählt, neuer Versuch?"
+
+#: pyXMLGPX-parser.py:237
+msgid "An error occurred while xml parsing, good luck!"
+msgstr "Fehler beim XML Parsen aufgetreten, viel Glück!"
+
+#: pyXMLGPX-parser.py:239
+msgid "file chosen: {gpx_url}"
+msgstr "Gewählte Datei: {gpx_url}"
+
+#: pyXMLGPX-parser.py:253
+msgid "<b>Total distance:</b>"
+msgstr "<b>Entfernung gesamt:</b>"
+
+#: pyXMLGPX-parser.py:262
+msgid "<b>Total duration:</b>"
+msgstr "<b>Gesamtdauer:</b>"
+
+#: pyXMLGPX-parser.py:353
+msgid "{total_distance: 5.3f} km"
+msgstr ""
+
+#: pyXMLGPX-parser.py:358
+msgid "{hh:2.0f}h {mm:2.0f}m {ss:2.1f}s"
+msgstr ""
+
+#: pyXMLGPX-parser.py:359
+msgid "total duration = {total_duration: 5.1f} seconds"
+msgstr "Gesamtdauer = {total_duration: 5.1f} Sekunden"
+
+#: pyXMLGPX-parser.py:360
+msgid "mytracks distance = {tracks_distance: 5.3f} km"
+msgstr "mytracks Entfernung = {tracks_distance: 5.3f} km"
+
+#: pyXMLGPX-parser.py:362
+msgid "Track contains {points} trackpoints"
+msgstr "Aufzeichnung enthält {points} Spurpunkte"
+
+#: pyXMLGPX-parser.py:363
+msgid "<span face=\"mono\" weight=\"bold\">View XML data from {gpx_url}</span>"
+msgstr "<span face=\"mono\" weight=\"bold\">XML Daten aus {gpx_url}</span>"
+
+#: pyXMLGPX-parser.py:373
+msgid "pyGtk: XML Application - XML Data from GPX Track"
+msgstr "pyGtk: XML Application - XML Daten aus GPX Spuraufzeichnung"
+
+#: pyXMLGPX-parser.py:376
+msgid "Erich Küster, Krefeld/Germany\n"
+msgstr "Erich Küster, Krefeld/Deutschland"
+
+#: pyXMLGPX-parser.py:386
+msgid "Erich Küster, Krefeld/Germany"
+msgstr "Erich Küster, Krefeld/Deutschland"
+
+#: pyXMLGPX-parser.py:389
+msgid "Unknown button was clicked"
+msgstr "Unbekannte Schaltfläche geklickt"

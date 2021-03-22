@@ -13,7 +13,7 @@ setup(name='pyXMLGPX-parser.py',
     license='MIT',
     package_data={
         # include files found in the "pyXMLGPX-parser" package
-        'pyXMLGPX-parser': ['*.xpm', 'COMMENTS', 'LICENSE'],
+        'pyXMLGPX-parser': ['*.xpm', 'COMMENTS', 'LICENSE', 'locale/*/LC_MESSAGES/*.mo'],
     },
     package_include=[True],
     packages=['pyXMLGPX-parser'],
