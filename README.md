@@ -38,7 +38,7 @@ sed -e 's/mytracks://g' -i.backup gpxtrack-0.gpx
 sed -e ':a;N;$!ba;s|\(.*<gpx\).*\(<trk>.*\)|\1>\2|' -i gpxtrack-0.gpx
 # the prefix `:a;N;$!ba;` is for adding of eventually existing linefeeds to the pattern space
 ```
-With the newest version of the programm this is NOT necessary anymore ...
+With the newest version of the program this is NOT necessary anymore ...
 
 ### Usage:
 The program is mostly self explaining. On the toolbar at top of the window you will find buttons for opening a xml file, leaving the program and getting some info about it. After opening a xml file the contained track points are displayed in a table together with the calculated speed between two points. The total covered distance and the total duration are shown at the bottom of the window. Erasing and/or inserting additional points should not be difficult to implant just as storing of the modified file (but I leave that as your own task).
