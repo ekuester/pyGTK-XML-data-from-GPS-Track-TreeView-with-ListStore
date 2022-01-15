@@ -81,8 +81,8 @@ Simplified example of a xml file with GPS track data:
 - Special thanks go to the people in the developer community at StackOverflow. Without their help and answered questions at <https://stackoverflow.com/> and affiliate sites this work would not be possible.
 
 ### Literature
-[1] <https://www.mytracks4mac.info/index.php/en/> (english)</br>
-[2] <https://www.mytracks4mac.info/index.php/de/> (german)</br>
+[1] <https://www.mytracks4mac.info/en/> (english)</br>
+[2] <https://www.mytracks4mac.info/de/> (german)</br>
 [3] <https://github.com/ekuester/pyGTK-List-ManifestDB-From-iOSBackup.git>
 
 ### Disclaimer
